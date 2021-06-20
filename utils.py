@@ -14,6 +14,10 @@ class POVRayObject():
 
         self.objects.append(object_)
 
+    def add_objects(self, objects):
+        for object_ in objects:
+            self.objects.append(object_)
+
     def add_attribute(self, attribute: str):
         '''
         Adiciona atributo ao objeto
@@ -90,6 +94,14 @@ class POVRayObject():
         for line in obj_list_str:
             print(line)
 
+class Intersection(POVRayObject):
+    def __init__(self):
+        super().__init__('intersection')
+
+class Difference(POVRayObject):
+    def __init__(self):
+        super().__init__('difference')
+
 class Union(POVRayObject):
     def __init__(self):
         super().__init__('union')
@@ -98,8 +110,32 @@ class Box(POVRayObject):
     def __init__(self, start_point, end_point):
         super().__init__('box')
         # Ponto inicial e ponto final da caixa
-        points_str = '<{:.2f}, {:.2f}, {:.2f}>, <{:.2f}, {:.2f}, {:.2f}>'.format(
+        dimensions_str = '<{:.2f}, {:.2f}, {:.2f}>, <{:.2f}, {:.2f}, {:.2f}>'.format(
             *start_point,
             *end_point
         )
-        self.add_attribute(points_str)
+        self.add_attribute(dimensions_str)
+
+class Cylinder(POVRayObject):
+    def __init__(self, start_point, end_point, radius):
+        super().__init__('cylinder')
+
+        # Ponto inicial, ponto final e raio
+        dimensions_str = '<{:.2f}, {:.2f}, {:.2f}>, <{:.2f}, {:.2f}, {:.2f}>, {:.2f}'.format(
+            *start_point,
+            *end_point,
+            radius
+        )
+
+        self.add_attribute(dimensions_str)
+
+class Sphere(POVRayObject):
+    def __init__(self, center, radius):
+        super().__init__('sphere')
+
+        dimensions_str = '<{:.2f}, {:.2f}, {:.2f}>, {:.2f}'.format(
+            *center,
+            radius
+        )
+
+        self.add_attribute(dimensions_str)
