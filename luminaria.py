@@ -1,7 +1,20 @@
 from utils import *
+import numpy as np
 
-h, d = map(int, input("").split())
-x, y, z = map(int, input("").split())
+import argparse
+
+argument_parser = argparse.ArgumentParser()
+
+argument_parser.add_argument("--h", default=24)
+argument_parser.add_argument("--d", default=4)
+argument_parser.add_argument("--x", default=30)
+argument_parser.add_argument("--y", default=20)
+argument_parser.add_argument("--z", default=-10)
+
+args = argument_parser.parse_args()
+
+h, d = args.h, args.d
+x, y, z = args.x, args.y, args.z
 
 hC = int(2*h/3)
 hB = int(h/3)
@@ -99,8 +112,8 @@ union.add_objects([
         (d - OFFSET_RAIO_CILINDROS)
     ),
     Cylinder(
-        (x, y + hB + TAMANHO_BASE_LUMINARIA, z),
-        (x, y + hC, z),
+        (x, y + TAMANHO_BASE_LUMINARIA, z),
+        (x, y + hB - .25 , z),
         (d * (RAZAO_LUMINARIA_CABO))
     )
 ])

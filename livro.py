@@ -3,8 +3,19 @@ import argparse
 
 from utils import *
 
-x, y, z = tuple(map(float, input().split()))
-point_init = x0, y0, z0 = tuple(map(float, input().split()))
+argument_parser = argparse.ArgumentParser()
+
+argument_parser.add_argument('--x', default=5)
+argument_parser.add_argument('--y', default=2)
+argument_parser.add_argument('--z', default=7)
+argument_parser.add_argument('--x0', default=22.5)
+argument_parser.add_argument('--y0', default=20)
+argument_parser.add_argument('--z0', default=-25)
+
+args = argument_parser.parse_args()
+
+x, y, z = args.x, args.y, args.z
+point_init = x0, y0, z0 = args.x0, args.y0, args.z0
 
 TAMANHO_CAPA = .3
 LARGURA_BEIRADA = .5
@@ -28,7 +39,7 @@ init_point_pages = np.array((x0 + OFFSET_PAGINA, y0 + TAMANHO_CAPA + TAMANHO_PAG
 
 numero_paginas = int((y - TAMANHO_CAPA * 2) / OFFSET_PAGINA)
 
-for i_pagina in range(2, numero_paginas):
+for i_pagina in range(2, numero_paginas + 2):
     end_point_pages = np.array((x0 + x - OFFSET_PAGINA, y0 + TAMANHO_CAPA + i_pagina * TAMANHO_PAGINA, z0 + z))
     page = Box(init_point_pages, end_point_pages)
 

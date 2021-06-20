@@ -106,6 +106,10 @@ class Union(POVRayObject):
     def __init__(self):
         super().__init__('union')
 
+class Merge(POVRayObject):
+    def __init__(self):
+        super().__init__('merge')
+
 class Box(POVRayObject):
     def __init__(self, start_point, end_point):
         super().__init__('box')

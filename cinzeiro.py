@@ -1,8 +1,20 @@
 import numpy as np
 from utils import *
 
-h, d = map(int, input().split())
-x, y, z = map(int, input().split())
+import argparse
+
+argument_parser = argparse.ArgumentParser()
+
+argument_parser.add_argument("--h", default=2)
+argument_parser.add_argument("--d", default=4)
+argument_parser.add_argument("--x", default=15)
+argument_parser.add_argument("--y", default=21)
+argument_parser.add_argument("--z", default=-30)
+
+args = argument_parser.parse_args()
+
+h, d = args.h, args.d
+x, y, z = args.x, args.y, args.z
 
 hC = int(3*h/5)
 hB = int(2*h/5)
@@ -25,7 +37,7 @@ difference.add_objects([
         radius=d
     ),
     Cylinder(
-        start_point=(x, y+hB, z),
+        start_point=(x, y+hB+0.2, z),
         end_point=(x, y+hC + OFFSET_ALTURA_CILINDROS, z),
         radius=(d - OFFSET_RAIO_CILINDROS)
     )
@@ -53,7 +65,7 @@ for i in range(3):
     vector = rot.dot(vector)
     difference.add_object(
         Sphere(
-            center=(x, yN, z+vector[1]),
+            center=(x + vector[0], yN, z+vector[1]),
             radius=RAIO_BURACO
         )
     )
@@ -72,7 +84,7 @@ difference_base.add_objects([
     ),
     Cylinder(
         start_point=(x, y + hB - 2*diametro_base, z),
-        end_point=(x, y, z),
+        end_point=(x, y - 1, z),
         radius=diametro_base
     )
 ])
